@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>For My Miss Cute | Ummu Ilham ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #0a0a0a;
+            color: #f5e6e8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* TRANSPARENT BACKGROUND WATERMARK - HER PHOTO */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('her-watermark.jpg'); /* REPLACE with her photo */
+            background-repeat: no-repeat;
+            background-position: center;
+            /* background-size: contain; */
+            background-size: cover;
+            background-size: 80% auto;
+            /* background-position: top center; */
+            /* background-position: bottom right; */
+            opacity: 0.08; /* Very transparent - adjust 0.05 to 0.15 as you like */
+            pointer-events: none; /* So it doesn't block clicking */
+            z-index: 0;
+        }
+
+        /* Make sure all content is above the watermark */
+        .hero, .section, footer, .modal, .floating-hearts {
+            position: relative;
+            z-index: 1;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff6b81;
+            border-radius: 10px;
+        }
+
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.35) contrast(1.1);
+        }
+
+        .hero-content {
+            z-index: 2;
+            animation: fadeInUp 1.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff, #ffb6c1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h3 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            color: #ffb6c1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 15px 45px;
+            background: linear-gradient(135deg, #ff6b81, #c44569);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(255,107,129,0.3);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(255,107,129,0.5);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .section {
+            padding: 100px 5%;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title:before {
+            content: '❤️';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -40px;
+            font-size: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .distance-badge {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .distance-badge span {
+            display: inline-block;
+            background: rgba(255,107,129,0.2);
+            backdrop-filter: blur(5px);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,107,129,0.5);
+        }
+
+        .love-letter-card {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 50px;
+            border: 1px solid rgba(255,107,129,0.3);
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .love-letter-card p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .nickname-box {
+            background: rgba(255,107,129,0.15);
+            border-radius: 60px;
+            padding: 15px 25px;
+            margin: 25px auto;
+            display: inline-block;
+            width: auto;
+        }
+
+        .nickname-box span {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #ffb6c1;
+        }
+
+        .nickname-box i {
+            margin: 0 10px;
+            color: #ff6b81;
+        }
+
+        .signature {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            color: #ffb6c1;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 3/4;
+            background: #1a1a1a;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay p {
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .video-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            position: relative;
+            background: #000;
+        }
+
+        video {
+            width: 100%;
+            display: block;
+        }
+
+        .video-caption {
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+            color: #ffb6c1;
+        }
+
+        .upload-instruction {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.8rem;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            display: inline-block;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 8px 20px;
+            border-radius: 50px;
+        }
+
+        .proposal-section {
+            background: rgba(26,26,46,0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-top: 50px;
+            border: 1px solid rgba(255,107,129,0.3);
+        }
+
+        .big-question {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            color: #ffb6c1;
+        }
+
+        .proposal-buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-yes, .btn-no {
+            padding: 18px 50px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #ff6b81, #c44569);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255,107,129,0.4);
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(255,107,129,0.6);
+        }
+
+        .btn-no {
+            background: rgba(255,255,255,0.1);
+            color: #ffb6c1;
+            border: 1px solid #ff6b81;
+        }
+
+        .response-message {
+            margin-top: 40px;
+            font-size: 1.5rem;
+            font-weight: 500;
+            min-height: 80px;
+        }
+
+        .floating-hearts {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: floatUp 4s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 20px;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero h3 { font-size: 1.3rem; }
+            .section-title { font-size: 2.2rem; }
+            .big-question { font-size: 2rem; }
+            .love-letter-card p { font-size: 1rem; }
+            .btn-yes, .btn-no { padding: 12px 30px; font-size: 1.2rem; }
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <img class="hero-bg" src="images/her-photo-1.jpg" alt="Romantic background">
+        <div class="hero-content">
+            <h1>My Dearest</h1>
+            <h3>Miss Cute ❤️ Ummu Ilham</h3>
+            <p>Distance means so little when someone means so much</p>
+            <a href="#proposal" class="hero-btn">A Question For You 💕</a>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down" style="color: white; font-size: 1.5rem;"></i>
+        </div>
+    </div>
+
+    <!-- Love Letter Section -->
+    <div class="section" id="loveletter">
+        <div class="container">
+            <div class="distance-badge fade-up">
+                <span><i class="fas fa-map-marker-alt"></i> Long Distance <i class="fas fa-heart"></i> But Forever Close</span>
+            </div>
+            <h2 class="section-title fade-up">From Your Gentleman</h2>
+            <div class="love-letter-card fade-up">
+                <p>My beautiful <strong>Miss Cute</strong> — my darling <strong>Ummu Ilham</strong>,</p>
+                <p>Every morning I wake up thinking of you. Every night I fall asleep with your smile in my heart. The miles between us mean nothing because you've already taken up every space in my soul.</p>
+                <div class="nickname-box">
+                    <span><i class="fas fa-star"></i> Miss Cute <i class="fas fa-heart"></i> Ummu Ilham <i class="fas fa-star"></i></span>
+                </div>
+                <p>You call me your Gentleman, and I promise to always be that for you — kind, loyal, and forever yours. No distance is too far when love is this real. Whether I call you Miss Cute or Ummu Ilham, it's always YOU — the only one my heart beats for.</p>
+                <p>I can't wait for the day when distance becomes just a memory, and we're finally in each other's arms — forever.</p>
+                <div class="signature">Always your Gentleman, <br>[Your Name]</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Section - ONLY HER PICTURES -->
+    <div class="section" id="gallery">
+        <div class="container">
+            <h2 class="section-title fade-up">My Miss Cute ❤️</h2>
+            <p style="text-align: center; margin-bottom: 20px; opacity: 0.8;">Every picture of you is my treasure — my Ummu Ilham</p>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- ⚠️ REPLACE THESE with YOUR GIRLFRIEND'S actual photos -->
+                <!-- Save her photos in the same folder and change the src -->
+                
+                <div class="gallery-item fade-up">
+                    <img src="images/her-photo-5.jpg" alt="Miss Cute">
+                    <div class="gallery-overlay"><p>❤️ My Miss Cute</p></div>
+                </div>
+                <div class="gallery-item fade-up">
+                    <img src="images/her-photo-3.jpg" alt="Ummu Ilham">
+                    <div class="gallery-overlay"><p>❤️ My Ummu Ilham</p></div>
+                </div>
+                <div class="gallery-item fade-up">
+                    <img src="images/her-photo-4.jpg" alt="Beautiful You">
+                    <div class="gallery-overlay"><p>❤️ Absolutely Beautiful</p></div>
+                </div>
+                <div class="gallery-item fade-up">
+                    <img src="images/pic 6.jpg" alt="Stunning">
+                    <div class="gallery-overlay"><p>❤️ Can't Stop Smiling</p></div>
+                </div>
+                <div class="gallery-item fade-up">
+                    <img src="images/her-photo-1.jpg" alt="My Love">
+                    <div class="gallery-overlay"><p>❤️ My Heart Belongs to You</p></div>
+                </div>
+                <div class="gallery-item fade-up">
+                    <img src="images/her-photo-2.jpg" alt="My Queen">
+                    <div class="gallery-overlay"><p>❤️ My Forever Person</p></div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 30px; font-size: 0.9rem; opacity: 0.7;">
+                <i class="fas fa-camera"></i> Click any photo to see it bigger
+            </p>
+        </div>
+    </div>
+
+    <!-- Video Section - HER VIDEO -->
+    <div class="section" id="video">
+        <div class="container">
+            <h2 class="section-title fade-up">A Video of You</h2>
+            <div class="video-wrapper fade-up">
+                <!-- ⚠️ IMPORTANT: Put her video file in the same folder -->
+                <!-- Save it as "her-video.mp4" or change the src below -->
+                <video controls poster="her-video.mp4">
+                    <source src="her-video.mp4" type="video/mp4">
+                    <p>Your browser doesn't support video. Video file: her-video.mp4</p>
+                </video>
+            </div>
+            <div class="video-caption fade-up">
+                🎥 Watching you makes me fall in love all over again — Miss Cute, my Ummu Ilham 🎥
+            </div>
+            <div class="upload-instruction fade-up">
+                <i class="fas fa-info-circle"></i> 
+            </div>
+        </div>
+    </div>
+
+    <!-- Proposal Section -->
+    <div class="section" id="proposal">
+        <div class="container">
+            <div class="proposal-section fade-up">
+                <div class="big-question">
+                    My Miss Cute — My Ummu Ilham<br>
+                    Will you be my forever?
+                </div>
+                <div class="proposal-buttons">
+                    <button class="btn-yes" id="yesBtn">Yes, Forever ❤️</button>
+                    <button class="btn-no" id="noBtn">💔</button>
+                </div>
+                <div class="response-message" id="responseMsg"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-hearts" id="heartContainer"></div>
+
+    <div id="modal" class="modal">
+        <img id="modalImage" alt="Miss Cute">
+    </div>
+
+    <script>
+        // Gallery Lightbox
+        const galleryImages = document.querySelectorAll('.gallery-item img');
+        const modal = document.getElementById('modal');
+        const modalImage = document.getElementById('modalImage');
+
+        galleryImages.forEach(img => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                modal.style.display = 'flex';
+                modalImage.src = img.src;
+            });
+        });
+
+        modal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Scroll Animation
+        const fadeElements = document.querySelectorAll('.fade-up');
+        
+        function checkFade() {
+            fadeElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                if (rect.top < windowHeight - 100) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('load', checkFade);
+
+        // Proposal Logic
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const responseMsg = document.getElementById('responseMsg');
+        const heartContainer = document.getElementById('heartContainer');
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = ['❤️', '💖', '💕', '💗', '💓', '💘', '💝'][Math.floor(Math.random() * 7)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.bottom = '0px';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            heartContainer.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }
+
+        function startHearts() {
+            for(let i = 0; i < 150; i++) {
+                setTimeout(() => createHeart(), i * 30);
+            }
+        }
+
+        yesBtn.addEventListener('click', () => {
+            responseMsg.innerHTML = "💖 YES! You just made your Gentleman the happiest man alive! Forever starts now, my Miss Cute — my Ummu Ilham! I love YOU! 💖";
+            responseMsg.style.color = "#ffb6c1";
+            startHearts();
+        });
+
+        let noButtonMoves = 0;
+        const originalNoBtnText = noBtn.innerHTML;
+        
+        noBtn.addEventListener('mouseenter', () => {
+            if(noButtonMoves < 10) {
+                const maxX = window.innerWidth - noBtn.offsetWidth - 100;
+                const maxY = window.innerHeight - noBtn.offsetHeight - 100;
+                const randomX = Math.random() * maxX;
+                const randomY = Math.random() * maxY;
+                noBtn.style.position = 'fixed';
+                noBtn.style.left = randomX + 'px';
+                noBtn.style.top = randomY + 'px';
+                noBtn.style.zIndex = '1000';
+                noButtonMoves++;
+                
+                const texts = ['💔', 'No?', 'Think again', '❤️?', 'Click yes!', 'Wrong button'];
+                noBtn.innerHTML = texts[Math.floor(Math.random() * texts.length)];
+            }
+        });
+
+        noBtn.addEventListener('click', () => {
+            responseMsg.innerHTML = "Hmm... I think you meant to click the other button, my love! Try again? 🥺❤️";
+            responseMsg.style.color = "#ffb6c1";
+            setTimeout(() => {
+                noBtn.style.position = '';
+                noBtn.style.left = '';
+                noBtn.style.top = '';
+                noButtonMoves = 0;
+                noBtn.innerHTML = originalNoBtnText;
+            }, 1500);
+        });
+
+        setInterval(() => {
+            if(Math.random() > 0.7) {
+                createHeart();
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
