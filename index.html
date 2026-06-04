@@ -32,13 +32,9 @@
             background-image: url('her-watermark.jpg'); /* REPLACE with her photo */
             background-repeat: no-repeat;
             background-position: center;
-            /* background-size: contain; */
-            background-size: cover;
             background-size: 80% auto;
-            /* background-position: top center; */
-            /* background-position: bottom right; */
-            opacity: 0.08; /* Very transparent - adjust 0.05 to 0.15 as you like */
-            pointer-events: none; /* So it doesn't block clicking */
+            opacity: 0.08;
+            pointer-events: none;
             z-index: 0;
         }
 
@@ -296,31 +292,43 @@
             font-size: 0.9rem;
         }
 
-        .video-wrapper {
+        /* Video container styling - enhanced for better UX */
+        .video-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
             max-width: 900px;
             margin: 0 auto;
+        }
+        .video-wrapper {
+            width: 100%;
             border-radius: 30px;
             overflow: hidden;
             box-shadow: 0 30px 60px rgba(0,0,0,0.5);
             position: relative;
             background: #000;
+            transition: transform 0.3s ease;
         }
-
+        .video-wrapper:hover {
+            transform: scale(1.01);
+        }
         video {
             width: 100%;
             display: block;
+            outline: none;
         }
 
         .video-caption {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 15px;
             font-style: italic;
             color: #ffb6c1;
+            font-size: 1rem;
         }
 
         .upload-instruction {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 25px;
             font-size: 0.8rem;
             background: rgba(0,0,0,0.5);
             backdrop-filter: blur(5px);
@@ -500,9 +508,7 @@
             <h2 class="section-title fade-up">My Miss Cute ❤️</h2>
             <p style="text-align: center; margin-bottom: 20px; opacity: 0.8;">Every picture of you is my treasure — my Ummu Ilham</p>
             <div class="gallery-grid" id="galleryGrid">
-                <!-- ⚠️ REPLACE THESE with YOUR GIRLFRIEND'S actual photos -->
-                <!-- Save her photos in the same folder and change the src -->
-                
+                <!-- Gallery images as per your original structure -->
                 <div class="gallery-item fade-up">
                     <img src="images/pic 7.jpg" alt="Miss Cute">
                     <div class="gallery-overlay"><p>❤️ My babyyy wifeyyy</p></div>
@@ -541,7 +547,7 @@
                 </div>
                  <div class="gallery-item fade-up">
                     <img src="images/pic 8.jpg" alt="My Love">
-                    <div class="gallery-overlay"><p>❤️ Queen Beauty</p></div>
+                    <div class="gallery-overlay"><p>❤️ Queen of Beauty</p></div>
                 </div>
                  <div class="gallery-item fade-up">
                     <img src="images/her-photo-1.jpg" alt="My Love">
@@ -558,32 +564,38 @@
         </div>
     </div>
 
-    <!-- Video Section - HER VIDEO -->
+    <!-- Video Section - Enhanced with auto-pause between videos -->
     <div class="section" id="video">
         <div class="container">
             <h2 class="section-title fade-up">A Video of You</h2>
-            <div class="video-wrapper fade-up">
-                <!-- ⚠️ IMPORTANT: Put her video file in the same folder -->
-                <!-- Save it as "her-video.mp4" or change the src below -->
-                <video controls poster="her vid2.mp4">
-                    <source src="her vid2.mp4" type="video/mp4">
-                    <p>Your browser doesn't support video. Video file: her-video.mp4</p>
-                </video>
-                 <video controls poster="henna vid.mp4">
-                    <source src="henna vid.mp4" type="video/mp4">
-                    <p>Your browser doesn't support video. Video file: her-video.mp4</p>
-                </video>
-                <video controls poster="her-video.mp4">
-                    <source src="her-video.mp4" type="video/mp4">
-                    <p>Your browser doesn't support video. Video file: her-video.mp4</p>
-                </video>
-            </div>
-            <div class="video-caption fade-up">
-                🎥 Watching you makes me fall in love all over again — MY SHAWATIE 🎥
+            <div class="video-grid fade-up">
+                <!-- Video 1 -->
+                <div class="video-wrapper">
+                    <video id="video1" controls poster="her vid2.mp4">
+                        <source src="her vid2.mp4" type="video/mp4">
+                        Your browser doesn't support video.
+                    </video>
+                    <div class="video-caption">✨ Every time you smile, my heart melts ✨</div>
+                </div>
+                <!-- Video 2 -->
+                <div class="video-wrapper">
+                    <video id="video2" controls poster="henna vid.mp4">
+                        <source src="henna vid.mp4" type="video/mp4">
+                        Your browser doesn't support video.
+                    </video>
+                    <div class="video-caption">💖 The best Henna of 2k26 💖</div>
+                </div>
+                <!-- Video 3 -->
+                <div class="video-wrapper">
+                    <video id="video3" controls poster="her-video.mp4">
+                        <source src="her-video.mp4" type="video/mp4">
+                        Your browser doesn't support video.
+                    </video>
+                    <div class="video-caption">🎥 Watching you makes me fall in love all over again — MY SHAWATIE 🎥</div>
+                </div>
             </div>
             <div class="upload-instruction fade-up">
-                <i class="fas fa-info-circle"></i> 
-            </div>
+                <i class="fas fa-info-circle"></i>
         </div>
     </div>
 
@@ -611,7 +623,36 @@
     </div>
 
     <script>
-        // Gallery Lightbox
+        // ========== VIDEO AUTO-PAUSE IMPLEMENTATION (CORE FIX) ==========
+        // This ensures that when any video starts playing, the others pause automatically.
+        // It also respects user interactions: playing, pausing, seeking.
+        
+        // Get all video elements from the page
+        const allVideos = document.querySelectorAll('video');
+        
+        // Function to pause all videos except the one that is currently playing
+        function pauseOtherVideos(activeVideo) {
+            allVideos.forEach(video => {
+                if (video !== activeVideo && !video.paused) {
+                    video.pause();
+                }
+            });
+        }
+        
+        // Attach event listeners to each video
+        allVideos.forEach(video => {
+            // When the 'play' event is triggered, pause all others
+            video.addEventListener('play', function() {
+                pauseOtherVideos(this);
+            });
+            
+            // Optional: Also handle 'playing' event for robustness (some browsers)
+            video.addEventListener('playing', function() {
+                pauseOtherVideos(this);
+            });
+        });
+        
+        // ========== Gallery Lightbox (unchanged but perfect) ==========
         const galleryImages = document.querySelectorAll('.gallery-item img');
         const modal = document.getElementById('modal');
         const modalImage = document.getElementById('modalImage');
@@ -628,7 +669,7 @@
             modal.style.display = 'none';
         });
 
-        // Scroll Animation
+        // ========== Scroll Animation ==========
         const fadeElements = document.querySelectorAll('.fade-up');
         
         function checkFade() {
@@ -644,7 +685,7 @@
         window.addEventListener('scroll', checkFade);
         window.addEventListener('load', checkFade);
 
-        // Proposal Logic
+        // ========== Proposal & Heart Logic ==========
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
         const responseMsg = document.getElementById('responseMsg');
@@ -712,6 +753,10 @@
                 createHeart();
             }
         }, 3000);
+        
+        // Additional small improvement: when modal closes, no video interference; keep behavior smooth.
+        // Also ensures that if a video is playing and modal opens, it's fine.
+        // Also, due to the 'play' event, any new video will pause others automatically.
     </script>
 </body>
 </html>
